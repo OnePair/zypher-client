@@ -2,7 +2,7 @@
   "name": "zypher-client",
   "version": "0.0.1",
   "description": "",
-  "main": "./build/src/index.js",
+  "main": "./build/index.js",
   "scripts": {
     "build": "tsc"
   },
