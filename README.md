@@ -1,7 +1,7 @@
 
 # Zypher-Client
 
-> A AuthID agent client implementation built in Typescript.
+> An AuthID agent client implementation built in Typescript.
 
 
 ## Install
