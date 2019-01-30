@@ -5,6 +5,7 @@ const API_PATH = "%s/v1/wallet/%s"
 
 const GET_ADDRESS = "getAddress";
 const GET_INFO = "getInfo";
+const GET_PUBLIC_KEYS = "getPublicKeys";
 const GET_SEED_PHRASE = "getSeedPhrase";
 const RECOVER_FROM_SEED_PHRASE = "recoverFromSeedPhrase";
 
@@ -38,10 +39,33 @@ export class ZypherWallet {
     });
   }
 
-  public getInfo(protocol: string, password: string): Promise<object> {
+  public getInfo(protocol: string): Promise<object> {
     return new Promise((onSuccess: Function, onError: Function) => {
       try {
         let apiUrl = this.getApiUrl(GET_INFO);
+        let body = { protocol: protocol };
+
+        request.post(apiUrl, { json: body }, (err, httpResponse, body) => {
+          if (err)
+            throw err;
+
+          if (httpResponse.statusCode != 200) {
+            onError(body);
+            return;
+          }
+
+          onSuccess(body);
+        });
+      } catch (err) {
+        onError(err);
+      }
+    });
+  }
+
+  public getPublicKeys(protocol: string, password: string): Promise<object> {
+    return new Promise((onSuccess: Function, onError: Function) => {
+      try {
+        let apiUrl = this.getApiUrl(GET_PUBLIC_KEYS);
         let body = { protocol: protocol, password: password };
 
         request.post(apiUrl, { json: body }, (err, httpResponse, body) => {
