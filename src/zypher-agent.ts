@@ -28,7 +28,7 @@ export class ZypherAgent {
           if (err)
             throw err;
 
-          if (httpResponse.statusCode != 200) {
+          if (httpResponse.statusCode != 201) {
             onError(body);
             return;
           }

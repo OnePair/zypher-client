@@ -1,4 +1,3 @@
-
 # Zypher-Client
 
 > An AuthID agent client implementation built in Typescript.
@@ -42,4 +41,3 @@ let zypherAgent = new ZypherAgent(agentHost);
 
 await zypherAgent.registerDID(eth, password);
 
-```
