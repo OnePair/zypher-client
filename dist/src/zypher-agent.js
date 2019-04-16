@@ -43,7 +43,7 @@ var ZypherAgent = /** @class */ (function () {
         var _this = this;
         return new Promise(function (onSuccess, onError) {
             try {
-                var apiUrl = _this.getApiUrl(REGISTER_DID);
+                var apiUrl = _this.getApiUrl(REGISTER_NAME);
                 var body = { protocol: protocol, password: password, name: name };
                 request_1.default.post(apiUrl, { json: body }, function (err, httpResponse, body) {
                     if (err)

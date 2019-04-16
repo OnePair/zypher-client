@@ -46,7 +46,7 @@ export class ZypherAgent {
     name: string): Promise<object> {
     return new Promise((onSuccess: Function, onError: Function) => {
       try {
-        let apiUrl = this.getApiUrl(REGISTER_DID);
+        let apiUrl = this.getApiUrl(REGISTER_NAME);
         let body = { protocol: protocol, password: password, name: name };
 
         request.post(apiUrl, { json: body }, (err, httpResponse, body) => {
