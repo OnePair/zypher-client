@@ -2,9 +2,9 @@
   "name": "zypher-client",
   "version": "0.0.1",
   "description": "",
-  "main": "./build/index.js",
+  "main": "./dist/index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc && tsc --declaration"
   },
   "author": "“Noah <“noah.bouma@gmail.com”>",
   "license": "ISC",

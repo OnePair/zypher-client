@@ -4,6 +4,7 @@ import request from "request";
 const API_PATH = "%s/v1/agent/%s"
 
 const REGISTER_DID = "registerDID";
+const REGISTER_NAME = "registerName";
 const IMPORT_DID = "importDID";
 const AUTHORIZE_PROCESSOR = "authorizeProcessor";
 const IMPORT_PROCESSOR = "importProcessor";
@@ -23,6 +24,30 @@ export class ZypherAgent {
       try {
         let apiUrl = this.getApiUrl(REGISTER_DID);
         let body = { protocol: protocol, password: password };
+
+        request.post(apiUrl, { json: body }, (err, httpResponse, body) => {
+          if (err)
+            throw err;
+
+          if (httpResponse.statusCode != 201) {
+            onError(body);
+            return;
+          }
+
+          onSuccess(body);
+        });
+      } catch (err) {
+        onError(err);
+      }
+    });
+  }
+
+  public registerName(protocol: string, password: string,
+    name: string): Promise<object> {
+    return new Promise((onSuccess: Function, onError: Function) => {
+      try {
+        let apiUrl = this.getApiUrl(REGISTER_DID);
+        let body = { protocol: protocol, password: password, name: name };
 
         request.post(apiUrl, { json: body }, (err, httpResponse, body) => {
           if (err)
