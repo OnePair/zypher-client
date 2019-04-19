@@ -14,6 +14,9 @@ var IMPORT_PROCESSOR = "importProcessor";
 var REVOKE_PROCESSOR = "revokeProcessor";
 var CREATE_JWT = "createJwt";
 var VERIFY_JWT = "verifyJwt";
+var CREATE_AUTH_REQUEST = "createAuthRequest";
+var SIGN_AUTH_REQUEST = "signAuthRequest";
+var VERIFY_AUTH_REQUEST = "verifyAuthRequest";
 var ZypherAgent = /** @class */ (function () {
     function ZypherAgent(host) {
         this.apiHost = util_1.default.format(API_PATH, host);
@@ -193,6 +196,69 @@ var ZypherAgent = /** @class */ (function () {
             try {
                 var apiUrl = _this.getApiUrl(VERIFY_JWT);
                 var body = { jwt: jwt, id: id };
+                request_1.default.post(apiUrl, { json: body }, function (err, httpResponse, body) {
+                    if (err)
+                        throw err;
+                    if (httpResponse.statusCode != 200) {
+                        onError(body);
+                        return;
+                    }
+                    onSuccess(body);
+                });
+            }
+            catch (err) {
+                onError(err);
+            }
+        });
+    };
+    ZypherAgent.prototype.createAuthRequest = function (id) {
+        var _this = this;
+        return new Promise(function (onSuccess, onError) {
+            try {
+                var apiUrl = _this.getApiUrl(CREATE_AUTH_REQUEST);
+                var body = { id: id };
+                request_1.default.post(apiUrl, { json: body }, function (err, httpResponse, body) {
+                    if (err)
+                        throw err;
+                    if (httpResponse.statusCode != 201) {
+                        onError(body);
+                        return;
+                    }
+                    onSuccess(body);
+                });
+            }
+            catch (err) {
+                onError(err);
+            }
+        });
+    };
+    ZypherAgent.prototype.signAuthRequest = function (password, authRequest) {
+        var _this = this;
+        return new Promise(function (onSuccess, onError) {
+            try {
+                var apiUrl = _this.getApiUrl(SIGN_AUTH_REQUEST);
+                var body = { password: password, authRequest: authRequest };
+                request_1.default.post(apiUrl, { json: body }, function (err, httpResponse, body) {
+                    if (err)
+                        throw err;
+                    if (httpResponse.statusCode != 201) {
+                        onError(body);
+                        return;
+                    }
+                    onSuccess(body);
+                });
+            }
+            catch (err) {
+                onError(err);
+            }
+        });
+    };
+    ZypherAgent.prototype.verifyAuthResponse = function (password, authReqsponse) {
+        var _this = this;
+        return new Promise(function (onSuccess, onError) {
+            try {
+                var apiUrl = _this.getApiUrl(VERIFY_AUTH_REQUEST);
+                var body = { password: password, authReqsponse: authReqsponse };
                 request_1.default.post(apiUrl, { json: body }, function (err, httpResponse, body) {
                     if (err)
                         throw err;

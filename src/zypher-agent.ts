@@ -11,6 +11,9 @@ const IMPORT_PROCESSOR = "importProcessor";
 const REVOKE_PROCESSOR = "revokeProcessor";
 const CREATE_JWT = "createJwt";
 const VERIFY_JWT = "verifyJwt";
+const CREATE_AUTH_REQUEST = "createAuthRequest";
+const SIGN_AUTH_REQUEST = "signAuthRequest";
+const VERIFY_AUTH_REQUEST = "verifyAuthRequest";
 
 export class ZypherAgent {
   private apiHost: string;
@@ -200,7 +203,6 @@ export class ZypherAgent {
             onError(body);
             return;
           }
-
           onSuccess(body);
         });
       } catch (err) {
@@ -223,7 +225,74 @@ export class ZypherAgent {
             onError(body);
             return;
           }
+          onSuccess(body);
+        });
+      } catch (err) {
+        onError(err);
+      }
+    });
+  }
 
+  public createAuthRequest(id: string): Promise<object> {
+    return new Promise<object>((onSuccess: Function, onError: Function) => {
+      try {
+        let apiUrl = this.getApiUrl(CREATE_AUTH_REQUEST);
+        let body = { id: id };
+
+        request.post(apiUrl, { json: body }, (err, httpResponse, body) => {
+          if (err)
+            throw err;
+
+          if (httpResponse.statusCode != 201) {
+            onError(body);
+            return;
+          }
+          onSuccess(body);
+        });
+      } catch (err) {
+        onError(err);
+      }
+    });
+  }
+
+  public signAuthRequest(password: string,
+    authRequest: object): Promise<object> {
+    return new Promise<object>((onSuccess: Function, onError: Function) => {
+      try {
+        let apiUrl = this.getApiUrl(SIGN_AUTH_REQUEST);
+        let body = { password: password, authRequest: authRequest };
+
+        request.post(apiUrl, { json: body }, (err, httpResponse, body) => {
+          if (err)
+            throw err;
+
+          if (httpResponse.statusCode != 201) {
+            onError(body);
+            return;
+          }
+          onSuccess(body);
+        });
+      } catch (err) {
+        onError(err);
+      }
+    });
+  }
+
+  public verifyAuthResponse(password: string,
+    authReqsponse: object): Promise<object> {
+    return new Promise<object>((onSuccess: Function, onError: Function) => {
+      try {
+        let apiUrl = this.getApiUrl(VERIFY_AUTH_REQUEST);
+        let body = { password: password, authReqsponse: authReqsponse };
+
+        request.post(apiUrl, { json: body }, (err, httpResponse, body) => {
+          if (err)
+            throw err;
+
+          if (httpResponse.statusCode != 200) {
+            onError(body);
+            return;
+          }
           onSuccess(body);
         });
       } catch (err) {
