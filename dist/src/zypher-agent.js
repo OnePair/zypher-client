@@ -254,12 +254,12 @@ var ZypherAgent = /** @class */ (function () {
             }
         });
     };
-    ZypherAgent.prototype.verifyAuthResponse = function (password, authReqsponse) {
+    ZypherAgent.prototype.verifyAuthResponse = function (authResponse) {
         var _this = this;
         return new Promise(function (onSuccess, onError) {
             try {
                 var apiUrl = _this.getApiUrl(VERIFY_AUTH_RESPONSE);
-                var body = { password: password, authReqsponse: authReqsponse };
+                var body = { authResponse: authResponse };
                 request_1.default.post(apiUrl, { json: body }, function (err, httpResponse, body) {
                     if (err)
                         throw err;

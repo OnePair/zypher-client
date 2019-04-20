@@ -11,6 +11,6 @@ export declare class ZypherAgent {
     verifyJwt(jwt: string, id: string): Promise<object>;
     createAuthRequest(id: string): Promise<object>;
     signAuthRequest(password: string, authRequest: object): Promise<object>;
-    verifyAuthResponse(password: string, authReqsponse: object): Promise<object>;
+    verifyAuthResponse(authResponse: object): Promise<object>;
     private getApiUrl;
 }

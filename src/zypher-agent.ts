@@ -279,12 +279,12 @@ export class ZypherAgent {
     });
   }
 
-  public verifyAuthResponse(password: string,
-    authReqsponse: object): Promise<object> {
+  public verifyAuthResponse(
+    authResponse: object): Promise<object> {
     return new Promise<object>((onSuccess: Function, onError: Function) => {
       try {
         let apiUrl = this.getApiUrl(VERIFY_AUTH_RESPONSE);
-        let body = { password: password, authReqsponse: authReqsponse };
+        let body = { authResponse: authResponse };
 
         request.post(apiUrl, { json: body }, (err, httpResponse, body) => {
           if (err)
