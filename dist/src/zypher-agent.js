@@ -17,6 +17,7 @@ var VERIFY_JWT = "verifyJwt";
 var CREATE_AUTH_REQUEST = "createAuthRequest";
 var SIGN_AUTH_REQUEST = "signAuthRequest";
 var VERIFY_AUTH_REQUEST = "verifyAuthRequest";
+var VERIFY_AUTH_RESPONSE = "verifyAuthResponse";
 var ZypherAgent = /** @class */ (function () {
     function ZypherAgent(host) {
         this.apiHost = util_1.default.format(API_PATH, host);
@@ -257,7 +258,7 @@ var ZypherAgent = /** @class */ (function () {
         var _this = this;
         return new Promise(function (onSuccess, onError) {
             try {
-                var apiUrl = _this.getApiUrl(VERIFY_AUTH_REQUEST);
+                var apiUrl = _this.getApiUrl(VERIFY_AUTH_RESPONSE);
                 var body = { password: password, authReqsponse: authReqsponse };
                 request_1.default.post(apiUrl, { json: body }, function (err, httpResponse, body) {
                     if (err)

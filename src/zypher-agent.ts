@@ -14,6 +14,7 @@ const VERIFY_JWT = "verifyJwt";
 const CREATE_AUTH_REQUEST = "createAuthRequest";
 const SIGN_AUTH_REQUEST = "signAuthRequest";
 const VERIFY_AUTH_REQUEST = "verifyAuthRequest";
+const VERIFY_AUTH_RESPONSE = "verifyAuthResponse"
 
 export class ZypherAgent {
   private apiHost: string;
@@ -282,7 +283,7 @@ export class ZypherAgent {
     authReqsponse: object): Promise<object> {
     return new Promise<object>((onSuccess: Function, onError: Function) => {
       try {
-        let apiUrl = this.getApiUrl(VERIFY_AUTH_REQUEST);
+        let apiUrl = this.getApiUrl(VERIFY_AUTH_RESPONSE);
         let body = { password: password, authReqsponse: authReqsponse };
 
         request.post(apiUrl, { json: body }, (err, httpResponse, body) => {
